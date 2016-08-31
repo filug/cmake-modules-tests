@@ -5,8 +5,9 @@ enable_testing()
 include_directories(${CMAKE_SOURCE_DIR})
 
 # Makefile customization
-option(ENABLE_CPPLINT "Enable C++ style checker" TRUE)
-option(ENABLE_UNITY   "Enable unit tests"        TRUE)
+option(ENABLE_CPPLINT "Enable C++ style checker"         TRUE)
+option(ENABLE_UNITY   "Enable unit tests"                TRUE)
+option(ENABLE_SPHINX  "Enable Sphinx doc generation"     TRUE)
 
 
 ################################
@@ -28,3 +29,11 @@ if(ENABLE_UNITY)
     unity_add_test(example2 unity/example2.c)
     unity_link_libraries(example2 somelib)
 endif(ENABLE_UNITY)
+
+####################################
+# Sphinx - documentation generator #
+####################################
+if(ENABLE_SPHINX)
+    include(cmake-modules/sphinx.cmake)
+    sphinx_generate_doc(sphinx/doc doc/html html 9.10.11)
+endif(ENABLE_SPHINX)
